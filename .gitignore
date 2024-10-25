@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,visualstudiocode,wordpress
 
 ### VisualStudioCode ###
-.vscode/*
+.vscode
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -10,7 +10,7 @@
 !.vscode/*.code-snippets
 
 # Composer
-vendor
+# vendor
 
 # Local History for Visual Studio Code
 .history/
@@ -79,7 +79,7 @@ wp-config.php
 /wp-content/uploads/
 
 # Log files
-*.log
+# *.log
 
 # htaccess
 /.htaccess
