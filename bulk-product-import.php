@@ -6,7 +6,7 @@
  * Author:      Shah jalal
  * Author URI:  https://github.com/shahjalal132
  * Description: WooCommerce Bulk Product Import from external api source. Auto import products from external api source.
- * Version:     0.1.0
+ * Version:     1.0.0
  * Domain Path: /languages
  * text-domain: bulk-product-import
  */
