@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Plugin Name: WooCommerce Bulk Product Import
- * Plugin URI:  https://imjol.com/products/bulk-product-import
+ * Plugin Name: Bulk Product Import & Sync From External API
+ * Plugin URI:  https://github.com/shahjalal132/woocommerce-bulk-products-import
  * Author:      Shah jalal
  * Author URI:  https://github.com/shahjalal132
  * Description: WooCommerce Bulk Product Import from external api source. Auto import products from external api source.
