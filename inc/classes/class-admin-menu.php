@@ -71,10 +71,6 @@ class Admin_Menu {
                 <ul class="nav nav-pills">
                     <li class="nav-item"><a href="#api"
                             class="nav-link be-nav-links"><?php esc_html_e( 'API', 'bulk-product-import' ); ?></a></li>
-                    <li class="nav-item"><a href="#product"
-                            class="nav-link be-nav-links"><?php esc_html_e( 'Product', 'bulk-product-import' ); ?></a></li>
-                    <li class="nav-item"><a href="#options"
-                            class="nav-link be-nav-links"><?php esc_html_e( 'Options', 'bulk-product-import' ); ?></a></li>
                     <li class="nav-item"><a href="#tables"
                             class="nav-link be-nav-links"><?php esc_html_e( 'Tables', 'bulk-product-import' ); ?></a></li>
                     <li class="nav-item"><a href="#endpoints"
@@ -83,16 +79,6 @@ class Admin_Menu {
 
                 <div id="api">
                     <?php include BULK_PRODUCT_IMPORT_PLUGIN_PATH . '/inc/template-parts/template-api.php'; ?>
-                </div>
-
-                <div id="product">
-                    <p><?php _e( 'Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.', 'bulk-product-import' ); ?>
-                    </p>
-                </div>
-
-                <div id="options">
-                    <p><?php _e( 'Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.', 'bulk-product-import' ); ?>
-                    </p>
                 </div>
 
                 <div id="tables">
