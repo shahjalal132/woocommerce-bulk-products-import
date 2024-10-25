@@ -17,8 +17,6 @@ use Automattic\WooCommerce\HttpClient\HttpClientException;
  * Function to insert products into WooCommerce
  * Fetch product data from database
  * Process product data and insert into WooCommerce
- * 
- * @return string|WP_REST_Response
  */
 function products_import_woocommerce() {
     try {
@@ -105,13 +103,6 @@ function products_import_woocommerce() {
                     // Get product id
                     $_product_id = get_the_ID();
 
-                    // Update the status of the processed product in your database
-                    $wpdb->update(
-                        $products_table,
-                        [ 'status' => 'completed' ],
-                        [ 'id' => $serial_id ]
-                    );
-
                     // Update the simple product if it already exists
                     $product_data = [
                         'name'        => $title,
@@ -123,6 +114,20 @@ function products_import_woocommerce() {
 
                     // Update product
                     $client->put( 'products/' . $_product_id, $product_data );
+
+                    // Update product stock
+                    be_handle_product_stock( $_product_id, $quantity );
+
+                    // Update product prices
+                    update_post_meta( $_product_id, '_regular_price', $regular_price );
+                    update_post_meta( $_product_id, '_price', $sale_price );
+
+                    // Update the status completed
+                    $wpdb->update(
+                        $products_table,
+                        [ 'status' => 'completed' ],
+                        [ 'id' => $serial_id ]
+                    );
 
                     // Return success response
                     return new \WP_REST_Response( [
@@ -148,9 +153,6 @@ function products_import_woocommerce() {
                     wp_set_object_terms( $product_id, 'simple', 'product_type' );
                     update_post_meta( $product_id, '_visibility', 'visible' );
 
-                    // Update product stock
-                    update_post_meta( $product_id, '_stock', $quantity );
-
                     // Update product prices
                     update_post_meta( $product_id, '_regular_price', $regular_price );
                     update_post_meta( $product_id, '_price', $sale_price );
@@ -161,13 +163,8 @@ function products_import_woocommerce() {
                     // Update product tags
                     wp_set_object_terms( $product_id, $tags, 'product_tag' );
 
-                    // Display out of stock message if stock is 0
-                    if ( $quantity <= 0 ) {
-                        update_post_meta( $product_id, '_stock_status', 'outofstock' );
-                    } else {
-                        update_post_meta( $product_id, '_stock_status', 'instock' );
-                    }
-                    update_post_meta( $product_id, '_manage_stock', 'yes' );
+                    // Update product stock
+                    be_handle_product_stock( $product_id, $quantity );
 
                     // Set product image gallery and thumbnail
                     if ( $images ) {
@@ -307,7 +304,7 @@ function set_product_images_with_unique_image_name( $product_id, $images ) {
                 $attach_id = wp_insert_attachment( $attachment, $file_path, $product_id );
 
                 // You need to generate the attachment metadata and update the attachment
-                require_once ( ABSPATH . 'wp-admin/includes/image.php' );
+                require_once( ABSPATH . 'wp-admin/includes/image.php' );
                 $attach_data = wp_generate_attachment_metadata( $attach_id, $file_path );
                 wp_update_attachment_metadata( $attach_id, $attach_data );
 
@@ -324,5 +321,18 @@ function set_product_images_with_unique_image_name( $product_id, $images ) {
 
         // Update the product gallery meta field
         update_post_meta( $product_id, '_product_image_gallery', implode( ',', $gallery_ids ) );
+    }
+}
+
+function be_handle_product_stock( $product_id, $quantity ) {
+    // Update product stock
+    update_post_meta( $product_id, '_stock', $quantity );
+    update_post_meta( $product_id, '_manage_stock', 'yes' );
+
+    // Display out of stock message if stock is 0
+    if ( $quantity <= 0 ) {
+        update_post_meta( $product_id, '_stock_status', 'outofstock' );
+    } else {
+        update_post_meta( $product_id, '_stock_status', 'instock' );
     }
 }
