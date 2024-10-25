@@ -27,6 +27,14 @@ if ( !defined( 'BULK_PRODUCT_IMPORT_ASSETS_URL' ) ) {
     define( 'BULK_PRODUCT_IMPORT_ASSETS_URL', BULK_PRODUCT_IMPORT_PLUGIN_URL . '/assets' );
 }
 
+if ( !defined( 'BULK_PRODUCT_IMPORT_PLUGIN_BASE_NAME' ) ) {
+    define( 'BULK_PRODUCT_IMPORT_PLUGIN_BASE_NAME', plugin_basename( __FILE__ ) );
+}
+
+if ( !defined( 'ADMIN_AJAX_URL' ) ) {
+    define( 'ADMIN_AJAX_URL', admin_url( 'admin-ajax.php' ) );
+}
+
 // require autoloader files
 require_once BULK_PRODUCT_IMPORT_PLUGIN_PATH . '/inc/helpers/autoloader.php';
 require_once BULK_PRODUCT_IMPORT_PLUGIN_PATH . '/load.php';
