@@ -146,6 +146,16 @@
       });
 
     document
+      .getElementById("insert-products-cp")
+      .addEventListener("click", function () {
+        let productInsertDB = document.getElementById(
+          "insert-products-api"
+        ).textContent;
+        copyToClipboard(productInsertDB);
+        showNotification("Copied to clipboard!");
+      });
+
+    document
       .getElementById("insert-price-cp")
       .addEventListener("click", function () {
         let syncProducts = document.getElementById(

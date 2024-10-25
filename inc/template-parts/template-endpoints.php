@@ -3,6 +3,11 @@
 $base_url = get_option( 'home' ) ?? '';
 ?>
 
+<h4 class="text-center mb-3">
+    <?php esc_html_e( 'API Endpoints', 'bulk-product-import' ); ?>
+</h4>
+</table>
+
 <table>
     <tr>
         <th><?php esc_html_e( 'Endpoint', 'bulk-product-import' ); ?></th>

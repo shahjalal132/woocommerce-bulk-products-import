@@ -86,11 +86,7 @@ class Admin_Menu {
                 </div>
 
                 <div id="endpoints">
-                    <div id="api-endpoints" class="common-shadow">
-                        <h4>
-                            <?php _e( 'API Endpoints', 'bulk-product-import' ); ?>
-                        </h4>
-
+                    <div id="api-endpoints">
                         <div id="api-endpoints-table">
                             <?php include BULK_PRODUCT_IMPORT_PLUGIN_PATH . '/inc/template-parts/template-endpoints.php'; ?>
                         </div>

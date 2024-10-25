@@ -4,6 +4,11 @@ $table_prefix = get_option( 'be-table-prefix' ) ?? '';
 ?>
 
 <div id="db-tables" class="common-shadow">
+
+    <h4 class="text-center mb-3">
+        <?php esc_html_e( 'Custom Table Prefix', 'bulk-product-import' ); ?>
+    </h4>
+
     <!-- Form to set the table prefix -->
     <form action="" method="post">
         <div class="d-flex align-items-center">
