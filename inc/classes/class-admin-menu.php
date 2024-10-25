@@ -1,6 +1,7 @@
 <?php
 
 namespace BULK_IMPORT\Inc;
+use BULK_IMPORT\Inc\Traits\Program_Logs;
 
 defined( "ABSPATH" ) || exit( "Direct Access Not Allowed" );
 
@@ -9,6 +10,7 @@ use BULK_IMPORT\Inc\Traits\Singleton;
 class Admin_Menu {
 
     use Singleton;
+    use Program_Logs;
 
     public function __construct() {
         $this->setup_hooks();
