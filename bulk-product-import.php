@@ -5,8 +5,8 @@
  * Plugin URI:  https://github.com/shahjalal132/woocommerce-bulk-products-import
  * Author:      Shah jalal
  * Author URI:  https://github.com/shahjalal132
- * Description: WooCommerce Bulk Product Import from external api source. Auto import products from external api source.
- * Version:     1.0.0
+ * Description: WooCommerce Bulk Product Import & Sync from external api source. Sync Products, Inventory, Prices, Orders, etc.
+ * Version:     2.0.0
  * Domain Path: /languages
  * text-domain: bulk-product-import
  */
