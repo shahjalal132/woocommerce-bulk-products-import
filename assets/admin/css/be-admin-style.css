@@ -42,17 +42,17 @@
 
 /* endpoints table */
 
-#api-endpoints-table table{
+#endpoints #api-endpoints #api-endpoints-table table{
   width: 100%;
 }
 
-#api-endpoints-table td,
-th {
+#endpoints #api-endpoints #api-endpoints-table td,
+#endpoints #api-endpoints #api-endpoints-table th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
 }
 
-#api-endpoints-table tr:nth-child(even) {
+#endpoints #api-endpoints #api-endpoints-table tr:nth-child(even) {
   background-color: #dddddd;
 }

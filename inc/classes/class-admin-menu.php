@@ -18,8 +18,20 @@ class Admin_Menu {
         add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
         add_action( 'admin_menu', [ $this, 'register_csv_import_menu' ] );
         add_action( 'admin_menu', [ $this, 'register_sheet_import_menu' ] );
+        add_filter( 'plugin_action_links_' . BULK_PRODUCT_IMPORT_PLUGIN_BASE_NAME, [ $this, 'be_add_settings_link' ] );
+        add_action( 'plugins_loaded', [ $this, 'bulk_product_import_plugin_load_textdomain' ] );
         add_action( 'wp_ajax_save_client_credentials', [ $this, 'save_client_credentials' ] );
         add_action( 'wp_ajax_save_table_prefix', [ $this, 'save_table_prefix' ] );
+    }
+
+    public function be_add_settings_link( $links ) {
+        $settings_link = '<a href="admin.php?page=bulk_product_import">' . __( 'Settings', 'bulk-product-import' ) . '</a>';
+        array_unshift( $links, $settings_link );
+        return $links;
+    }
+
+    public function bulk_product_import_plugin_load_textdomain() {
+        load_plugin_textdomain( 'bulk-product-import', false, BULK_PRODUCT_IMPORT_PLUGIN_DIR_NAME . '/languages' );
     }
 
     public function register_admin_menu() {
