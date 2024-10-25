@@ -23,8 +23,8 @@ if ( !defined( 'BULK_PRODUCT_IMPORT_PLUGIN_URL' ) ) {
     define( 'BULK_PRODUCT_IMPORT_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
 }
 
-if ( !defined( 'BULK_PRODUCT_IMPORT_ASSETS_PATH' ) ) {
-    define( 'BULK_PRODUCT_IMPORT_ASSETS_PATH', BULK_PRODUCT_IMPORT_PLUGIN_URL . '/assets' );
+if ( !defined( 'BULK_PRODUCT_IMPORT_ASSETS_URL' ) ) {
+    define( 'BULK_PRODUCT_IMPORT_ASSETS_URL', BULK_PRODUCT_IMPORT_PLUGIN_URL . '/assets' );
 }
 
 // require autoloader files
