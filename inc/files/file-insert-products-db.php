@@ -32,24 +32,35 @@ function fetch_products_from_api() {
 
 // insert products to database
 function insert_products_db() {
+    // Fetch products from the API
+    $api_response = fetch_products_from_api();
+    if ( is_wp_error( $api_response ) || empty( $api_response ) ) {
+        return 'Error fetching products from API or empty response.';
+    }
 
-    ob_start();
+    $products = [];
+    if ( !empty( $api_response ) ) {
+        $products = json_decode( $api_response, true );
+        if ( json_last_error() !== JSON_ERROR_NONE ) {
+            return 'Error decoding API response: ' . json_last_error_msg();
+        }
+    }
 
-    /* $api_response = fetch_products_from_api();
-    $products     = json_decode( $api_response, true );
-
-    // Insert to database
+    // Database insertion
     global $wpdb;
     $table_prefix   = get_option( 'be-table-prefix' ) ?? '';
     $products_table = $wpdb->prefix . $table_prefix . 'sync_products';
+
+    // Truncate table with error handling
     truncate_table( $products_table );
 
+    // Insert products and handle errors individually
+    $errors = [];
     foreach ( $products as $product ) {
 
-        // extract products
         $product_data = json_encode( $product );
 
-        $wpdb->insert(
+        $inserted = $wpdb->insert(
             $products_table,
             [
                 'product_number' => '',
@@ -57,15 +68,20 @@ function insert_products_db() {
                 'status'         => 'pending',
             ]
         );
-    } */
 
-    echo '<h4>Products inserted successfully DB</h4>';
+        if ( $inserted === false ) {
+            $errors[] = 'Error inserting product: ' . $wpdb->last_error;
+        }
+    }
 
-    return ob_get_clean();
+    // Return appropriate message based on errors
+    if ( !empty( $errors ) ) {
+        return 'Some products could not be inserted: ' . implode( '; ', $errors );
+    }
+
+    return 'Products inserted successfully into the database.';
 }
 
-
-// +++++++++++++++++++++++++++++++++
 // fetch price from api
 function fetch_price_from_api() {
 
@@ -93,40 +109,58 @@ function fetch_price_from_api() {
 
 // insert price to database
 function insert_price_db() {
+    // Fetch price data from the API
+    $api_response = fetch_price_from_api();
+    if ( is_wp_error( $api_response ) || empty( $api_response ) ) {
+        return 'Error fetching prices from API or empty response.';
+    }
 
-    ob_start();
+    $prices = [];
+    if ( !empty( $api_response ) ) {
+        $prices = json_decode( $api_response, true );
+        if ( json_last_error() !== JSON_ERROR_NONE ) {
+            return 'Error decoding API response: ' . json_last_error_msg();
+        }
+    }
 
-    /* $api_response = fetch_price_from_api();
-    $products     = json_decode( $api_response, true );
-
-    // Insert to database
+    // Database insertion
     global $wpdb;
     $table_prefix = get_option( 'be-table-prefix' ) ?? '';
     $price_table  = $wpdb->prefix . $table_prefix . 'sync_price';
+
+    // Truncate table with error handling
     truncate_table( $price_table );
 
-    foreach ( $products as $product ) {
+    // Insert prices and handle errors individually
+    $errors = [];
+    foreach ( $prices as $price ) {
+        // Assuming the price array contains keys for 'product_number', 'regular_price', and 'sale_price'
+        $product_number = $price['product_number'] ?? '';
+        $regular_price  = $price['regular_price'] ?? 0;
+        $sale_price     = $price['sale_price'] ?? 0;
 
-        // extract price
-
-        $wpdb->insert(
+        $inserted = $wpdb->insert(
             $price_table,
             [
-                'product_number' => '',
-                'regular_price'  => 0,
-                'sale_price'     => 0,
+                'product_number' => $product_number,
+                'regular_price'  => $regular_price,
+                'sale_price'     => $sale_price,
             ]
         );
-    } */
 
-    echo '<h4>Prices inserted successfully DB</h4>';
+        if ( $inserted === false ) {
+            $errors[] = 'Error inserting price for product ' . $product_number . ': ' . $wpdb->last_error;
+        }
+    }
 
-    return ob_get_clean();
+    // Return appropriate message based on errors
+    if ( !empty( $errors ) ) {
+        return 'Some prices could not be inserted: ' . implode( '; ', $errors );
+    }
 
+    return 'Prices inserted successfully into the database.';
 }
 
-
-// +++++++++++++++++++++++++++++++++
 // fetch price from api
 function fetch_stock_from_api() {
 
@@ -154,33 +188,52 @@ function fetch_stock_from_api() {
 
 // insert stock to database
 function insert_stock_db() {
+    // Fetch stock data from the API
+    $api_response = fetch_stock_from_api();
+    if ( is_wp_error( $api_response ) || empty( $api_response ) ) {
+        return 'Error fetching stock from API or empty response.';
+    }
 
-    ob_start();
+    $stocks = [];
+    if ( !empty( $api_response ) ) {
+        $stocks = json_decode( $api_response, true );
+        if ( json_last_error() !== JSON_ERROR_NONE ) {
+            return 'Error decoding API response: ' . json_last_error_msg();
+        }
+    }
 
-    /* $api_response = fetch_stock_from_api();
-    $products     = json_decode( $api_response, true );
-
-    // Insert to database
+    // Database insertion
     global $wpdb;
     $table_prefix = get_option( 'be-table-prefix' ) ?? '';
     $stock_table  = $wpdb->prefix . $table_prefix . 'sync_stock';
+
+    // Truncate table with error handling
     truncate_table( $stock_table );
 
-    foreach ( $products as $product ) {
+    // Insert stock data and handle errors individually
+    $errors = [];
+    foreach ( $stocks as $stock ) {
+        // Assuming each stock contains a 'product_number' and 'stock' field
+        $product_number = $stock['product_number'] ?? '';
+        $stock          = $stock['stock'] ?? 0;
 
-        // extract stock
-
-        $wpdb->insert(
+        $inserted = $wpdb->insert(
             $stock_table,
             [
-                'product_number' => '',
-                'stock'          => 0,
+                'product_number' => $product_number,
+                'stock'          => $stock,
             ]
         );
-    } */
 
-    echo '<h4>Stocks inserted successfully DB</h4>';
+        if ( $inserted === false ) {
+            $errors[] = 'Error inserting stock for product ' . $product_number . ': ' . $wpdb->last_error;
+        }
+    }
 
-    return ob_get_clean();
+    // Return appropriate message based on errors
+    if ( !empty( $errors ) ) {
+        return 'Some stock records could not be inserted: ' . implode( '; ', $errors );
+    }
 
+    return 'Stocks inserted successfully into the database.';
 }
