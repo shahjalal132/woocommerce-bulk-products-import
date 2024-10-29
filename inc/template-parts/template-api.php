@@ -17,7 +17,7 @@ $client_secret = get_option( 'be-client-secret' ) ?? '';
             <form id="client-credentials-form">
                 <div class="row mb-3">
                     <!-- Label for Client ID -->
-                    <label class="col-sm-4 col-form-label text-end" for="client-id">
+                    <label class="col-sm-4 col-form-label text-start" for="client-id">
                         <?php esc_html_e( 'Client ID', 'bulk-product-import' ); ?>
                     </label>
                     <!-- Input for Client ID -->
@@ -30,7 +30,7 @@ $client_secret = get_option( 'be-client-secret' ) ?? '';
 
                 <div class="row mb-3">
                     <!-- Label for Client Secret -->
-                    <label class="col-sm-4 col-form-label text-end" for="client-secret">
+                    <label class="col-sm-4 col-form-label text-start" for="client-secret">
                         <?php esc_html_e( 'Client Secret', 'bulk-product-import' ); ?>
                     </label>
                     <!-- Input for Client Secret -->
