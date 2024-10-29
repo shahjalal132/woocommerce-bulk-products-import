@@ -3,25 +3,37 @@
 $table_prefix = get_option( 'be-table-prefix' ) ?? '';
 ?>
 
-<div id="db-tables" class="common-shadow">
+<div id="db-tables" class="common-shadow container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Title for the Table Prefix Section -->
+            <h4 class="text-center mb-4">
+                <?php esc_html_e( 'Custom Table Prefix', 'bulk-product-import' ); ?>
+            </h4>
 
-    <h4 class="text-center mb-3">
-        <?php esc_html_e( 'Custom Table Prefix', 'bulk-product-import' ); ?>
-    </h4>
+            <!-- Form to set the table prefix -->
+            <form action="" method="post">
+                <div class="row mb-3">
+                    <!-- Label for Table Prefix -->
+                    <label class="col-sm-4 col-form-label text-end" for="table-prefix">
+                        <?php esc_html_e( 'Table Prefix', 'bulk-product-import' ); ?>
+                    </label>
+                    <!-- Input for Table Prefix -->
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="table-prefix" id="table-prefix"
+                               placeholder="<?php esc_attr_e( 'Enter Table Prefix', 'bulk-product-import' ); ?>"
+                               value="<?php echo esc_attr( $table_prefix ); ?>">
+                    </div>
+                </div>
 
-    <!-- Form to set the table prefix -->
-    <form action="" method="post">
-        <div class="d-flex align-items-center">
-            <!-- Label and input for Table Prefix -->
-            <label class="form-label" for="table-prefix">
-                <?php esc_html_e( 'Table Prefix', 'bulk-product-import' ); ?>
-            </label>
-            <input type="text" class="form-control w-50 ms-5" name="table-prefix" id="table-prefix"
-                placeholder="<?php esc_attr_e( 'Enter Table Prefix', 'bulk-product-import' ); ?>"
-                value="<?php echo esc_attr( $table_prefix ); ?>">
+                <!-- Submit button to save table prefix -->
+                <div class="row">
+                    <div class="col text-start">
+                        <input type="submit" class="btn btn-primary" id="save-table-prefix"
+                               value="<?php esc_attr_e( 'Save', 'bulk-product-import' ); ?>">
+                    </div>
+                </div>
+            </form>
         </div>
-        <!-- Submit button to save table prefix -->
-        <input type="submit" class="btn btn-primary mt-3" id="save-table-prefix"
-            value="<?php esc_attr_e( 'Save', 'bulk-product-import' ); ?>">
-    </form>
+    </div>
 </div>
