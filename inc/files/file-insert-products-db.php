@@ -73,7 +73,7 @@ function insert_products_db() {
             'pending'
         );
 
-        $wpdb->query( $sql ); */
+        $inserted = $wpdb->query( $sql ); */
 
         $inserted = $wpdb->insert(
             $products_table,
