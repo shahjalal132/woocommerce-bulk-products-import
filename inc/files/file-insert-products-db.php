@@ -46,6 +46,9 @@ function insert_products_db() {
         }
     }
 
+    // echo count($products);
+    // die();
+
     // Database insertion
     global $wpdb;
     $table_prefix   = get_option( 'be-table-prefix' ) ?? '';
@@ -59,6 +62,18 @@ function insert_products_db() {
     foreach ( $products as $product ) {
 
         $product_data = json_encode( $product );
+
+        /* $sql = $wpdb->prepare(
+            "INSERT INTO $products_table (product_number, product_data, status) VALUES (%s, %s, %s)
+            ON DUPLICATE KEY UPDATE product_data = %s, status = %s",
+            $product_number,
+            $product_data,
+            'pending',
+            $product_data,
+            'pending'
+        );
+
+        $wpdb->query( $sql ); */
 
         $inserted = $wpdb->insert(
             $products_table,
