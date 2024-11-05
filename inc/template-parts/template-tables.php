@@ -15,11 +15,11 @@ $table_prefix = get_option( 'be-table-prefix' ) ?? '';
             <form action="" method="post">
                 <div class="row align-items-center justify-content-between mb-3">
                     <!-- Label for Table Prefix -->
-                    <label class="col-sm-3 col-form-label" for="table-prefix">
+                    <label class="col-sm-4 col-form-label" for="table-prefix">
                         <?php esc_html_e( 'Table Prefix', 'just-another-panel' ); ?>
                     </label>
                     <!-- Input for Table Prefix -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <input type="text" class="form-control" name="table-prefix" id="table-prefix"
                                placeholder="<?php esc_attr_e( 'Enter Table Prefix', 'just-another-panel' ); ?>"
                                value="<?php echo esc_attr( $table_prefix ); ?>">
