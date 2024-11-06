@@ -24,6 +24,7 @@ class Admin_Menu {
         add_action( 'plugins_loaded', [ $this, 'bulk_product_import_plugin_load_textdomain' ] );
         add_action( 'wp_ajax_save_client_credentials', [ $this, 'save_client_credentials' ] );
         add_action( 'wp_ajax_save_table_prefix', [ $this, 'save_table_prefix' ] );
+        add_action( 'wp_ajax_save_options', [ $this, 'save_options_callback' ] );
     }
 
     public function be_add_settings_link( $links ) {
@@ -87,6 +88,8 @@ class Admin_Menu {
                             class="nav-link be-nav-links"><?php esc_html_e( 'API', 'bulk-product-import' ); ?></a></li>
                     <li class="nav-item"><a href="#tables"
                             class="nav-link be-nav-links"><?php esc_html_e( 'Table Prefix', 'bulk-product-import' ); ?></a></li>
+                    <li class="nav-item"><a href="#options"
+                            class="nav-link be-nav-links"><?php esc_html_e( 'Options', 'bulk-product-import' ); ?></a></li>
                     <li class="nav-item"><a href="#endpoints"
                             class="nav-link be-nav-links"><?php esc_html_e( 'Endpoints', 'bulk-product-import' ); ?></a></li>
                 </ul>
@@ -97,6 +100,10 @@ class Admin_Menu {
 
                 <div id="tables">
                     <?php include BULK_PRODUCT_IMPORT_PLUGIN_PATH . '/inc/template-parts/template-tables.php'; ?>
+                </div>
+
+                <div id="options">
+                    <?php include BULK_PRODUCT_IMPORT_PLUGIN_PATH . '/inc/template-parts/template-options.php'; ?>
                 </div>
 
                 <div id="endpoints">
@@ -173,5 +180,19 @@ class Admin_Menu {
         update_option( 'be-table-prefix', $table_prefix );
 
         wp_send_json_success( __( 'Table prefix saved successfully', 'bulk-product-import' ) );
+    }
+
+    public function save_options_callback() {
+
+        check_ajax_referer( 'bulk_product_import_nonce', 'nonce' );
+
+        if ( !current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( __( 'Unauthorized user', 'bulk-product-import' ) );
+        }
+
+        $option1 = sanitize_text_field( $_POST['option1'] );
+        update_option( 'bpi_option1', $option1 );
+
+        wp_send_json_success( __( 'Options saved successfully', 'bulk-product-import' ) );
     }
 }

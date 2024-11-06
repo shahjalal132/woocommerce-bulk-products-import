@@ -7,13 +7,13 @@
         duration: 3000,
         newWindow: true,
         close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true, 
         style: {
           background: "linear-gradient(to right, #00b09b, #96c93d)",
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () {},
       }).showToast();
     }
 
@@ -40,12 +40,14 @@
             let successMessage = response.data;
             // Display an info toast with no title
             showNotification(successMessage);
+            window.location.reload();
           } else {
             let errorMessage = response.data;
           }
         },
         error: function () {
           alert("An error occurred. Please try again.");
+          window.location.reload();
         },
       });
     });
@@ -68,6 +70,30 @@
           let successMessage = response.data;
           // Display an info toast with no title
           showNotification(successMessage);
+          // window.location.reload();
+        },
+      });
+    });
+
+    // handle db tables creation
+    $("#options-save").on("click", function (e) {
+      e.preventDefault();
+
+      let option1 = $("#option1").val();
+
+      $.ajax({
+        type: "POST",
+        url: bulkProductImport.ajax_url,
+        data: {
+          action: "save_options",
+          nonce: bulkProductImport.nonce,
+          option1: option1,
+        },
+        success: function (response) {
+          let successMessage = response.data;
+          // Display an info toast with no title
+          showNotification(successMessage);
+          // window.location.reload();
         },
       });
     });

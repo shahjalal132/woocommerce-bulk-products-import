@@ -45,7 +45,7 @@ class Enqueue_Assets {
     public function admin_enqueue_style() {
         wp_register_style( "be-admin-bootstrap", BULK_PRODUCT_IMPORT_ASSETS_URL . "/admin/css/bootstrap.min.css" );
         wp_register_style( "be-admin-toastify", BULK_PRODUCT_IMPORT_ASSETS_URL . "/admin/css/toastify.css" );
-        wp_register_style( "be-admin-style", BULK_PRODUCT_IMPORT_ASSETS_URL . "/admin/css/be-admin-style.css" );
+        wp_register_style( "be-admin-style", BULK_PRODUCT_IMPORT_ASSETS_URL . "/admin/css/be-admin-style.css", [], time(), "all" );
 
         wp_enqueue_style( "be-admin-bootstrap" );
         wp_enqueue_style( "be-admin-toastify" );
@@ -60,7 +60,7 @@ class Enqueue_Assets {
         wp_register_script( "toastify", BULK_PRODUCT_IMPORT_ASSETS_URL . "/admin/js/toastify.js", [], false, true );
 
         // register admin menu js
-        wp_register_script( "be-admin-script", BULK_PRODUCT_IMPORT_ASSETS_URL . "/admin/js/be-admin-scripts.js", [ 'jquery' ], false, true );
+        wp_register_script( "be-admin-script", BULK_PRODUCT_IMPORT_ASSETS_URL . "/admin/js/be-admin-scripts.js", [ 'jquery' ], time(), true );
         wp_localize_script( 'be-admin-script', 'bulkProductImport', [
             'ajax_url' => admin_url( 'admin-ajax.php' ),
             'nonce'    => wp_create_nonce( 'bulk_product_import_nonce' ),
