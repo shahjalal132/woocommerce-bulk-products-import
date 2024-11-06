@@ -85,13 +85,17 @@ class Admin_Menu {
 
                 <ul class="nav nav-pills">
                     <li class="nav-item"><a href="#api"
-                            class="nav-link be-nav-links"><?php esc_html_e( 'API', 'bulk-product-import' ); ?></a></li>
+                            class="nav-link be-nav-links"><?php esc_html_e( 'API', 'bulk-product-import' ); ?></a>
+                    </li>
                     <li class="nav-item"><a href="#tables"
-                            class="nav-link be-nav-links"><?php esc_html_e( 'Table Prefix', 'bulk-product-import' ); ?></a></li>
-                    <li class="nav-item"><a href="#options"
-                            class="nav-link be-nav-links"><?php esc_html_e( 'Options', 'bulk-product-import' ); ?></a></li>
+                            class="nav-link be-nav-links"><?php esc_html_e( 'Table Prefix', 'bulk-product-import' ); ?></a>
+                    </li>
+                    <!-- <li class="nav-item"><a href="#options"
+                            class="nav-link be-nav-links"><?php // esc_html_e( 'Options', 'bulk-product-import' ); ?></a>
+                    </li> -->
                     <li class="nav-item"><a href="#endpoints"
-                            class="nav-link be-nav-links"><?php esc_html_e( 'Endpoints', 'bulk-product-import' ); ?></a></li>
+                            class="nav-link be-nav-links"><?php esc_html_e( 'Endpoints', 'bulk-product-import' ); ?></a>
+                    </li>
                 </ul>
 
                 <div id="api">
@@ -102,9 +106,9 @@ class Admin_Menu {
                     <?php include BULK_PRODUCT_IMPORT_PLUGIN_PATH . '/inc/template-parts/template-tables.php'; ?>
                 </div>
 
-                <div id="options">
-                    <?php include BULK_PRODUCT_IMPORT_PLUGIN_PATH . '/inc/template-parts/template-options.php'; ?>
-                </div>
+                <!-- <div id="options">
+                    <?php // include BULK_PRODUCT_IMPORT_PLUGIN_PATH . '/inc/template-parts/template-options.php'; ?>
+                </div> -->
 
                 <div id="endpoints">
                     <div id="api-endpoints">
