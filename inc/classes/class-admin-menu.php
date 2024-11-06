@@ -18,8 +18,8 @@ class Admin_Menu {
 
     public function setup_hooks() {
         add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
-        add_action( 'admin_menu', [ $this, 'register_csv_import_menu' ] );
-        add_action( 'admin_menu', [ $this, 'register_sheet_import_menu' ] );
+        // add_action( 'admin_menu', [ $this, 'register_csv_import_menu' ] );
+        // add_action( 'admin_menu', [ $this, 'register_sheet_import_menu' ] );
         add_filter( 'plugin_action_links_' . BULK_PRODUCT_IMPORT_PLUGIN_BASE_NAME, [ $this, 'be_add_settings_link' ] );
         add_action( 'plugins_loaded', [ $this, 'bulk_product_import_plugin_load_textdomain' ] );
         add_action( 'wp_ajax_save_client_credentials', [ $this, 'save_client_credentials' ] );
@@ -27,7 +27,7 @@ class Admin_Menu {
     }
 
     public function be_add_settings_link( $links ) {
-        $settings_link = '<a href="admin.php?page=bulk_product_import">' . __( 'Settings', 'bulk-product-import' ) . '</a>';
+        $settings_link = '<a href="admin.php?page=bpi_settings">' . __( 'Settings', 'bulk-product-import' ) . '</a>';
         array_unshift( $links, $settings_link );
         return $links;
     }
@@ -38,19 +38,19 @@ class Admin_Menu {
 
     public function register_admin_menu() {
         add_menu_page(
-            __( 'Bulk Product Import', 'bulk-product-import' ),
-            __( 'Bulk Product Import', 'bulk-product-import' ),
+            __( 'BPI Settings', 'bulk-product-import' ),
+            __( 'BPI Settings', 'bulk-product-import' ),
             'manage_options',
-            'bulk_product_import',
+            'bpi_settings',
             [ $this, 'bulk_product_import_page_html' ],
-            'dashicons-cloud-upload',
+            'dashicons-admin-generic',
             80
         );
     }
 
     public function register_csv_import_menu() {
         add_submenu_page(
-            'bulk_product_import',
+            'bpi_settings',
             'CSV Import',
             'CSV Import',
             'manage_options',
@@ -61,7 +61,7 @@ class Admin_Menu {
 
     public function register_sheet_import_menu() {
         add_submenu_page(
-            'bulk_product_import',
+            'bpi_settings',
             'Sheet Import',
             'Sheet Import',
             'manage_options',
